@@ -12,20 +12,19 @@ void Test()
 		std::pair<std::string, std::string> taskname = { "FFシリーズ","FF5" };
 		auto obj = TaskObject::Create(&taskname);
 	}
-	{
 		std::pair<std::string, std::string> taskname = { "FFシリーズ","FF6" };
-		auto obj = TaskObject::Create(&taskname);
+		auto obj1 = TaskObject::Create(&taskname);
+		obj1->TaskKill();
+		Tasksystem->Destory();			//デストラクタが呼ばれて欲しい
 		Tasksystem->TasknameOutput();
 		Tasksystem->UpDate();
-	}
-	Tasksystem->Render();
 }
 
 int main()
 {
 	Test();
 
-	delete Tasksystem;
+	Tasksystem->TaskObjectDelete();
 	Tasksystem = nullptr;
 	system("pause");
 }

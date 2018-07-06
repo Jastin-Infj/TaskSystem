@@ -2,9 +2,6 @@
 #include <vector>
 #include <memory>
 
-/*前方宣言*/
-struct KillSystem;
-
 ///<summary>
 ///
 ///</summary>
@@ -13,10 +10,61 @@ struct KillSystem;
 ///</returns>
 
 ///<summary>
+///タスクを消滅させるクラス
+///</summary>
+class KillSystem
+{
+public:
+
+	///メンバ関数
+
+	///<summary>
+	///コンストラクタ
+	///</summary>
+	KillSystem();
+
+
+	///<summary>
+	///デストラクタ
+	///</summary>
+	~KillSystem();
+
+
+	///<summary>
+	///オブジェクトの消去依頼をします
+	///</summary>
+	///<returns>
+	///なし
+	///</returns>
+	void Kill();
+
+
+	///<summary>
+	///消滅させるかどうかを判定します
+	///</summary>
+	///<returns>
+	///消滅させる　true : 消滅しない false
+	///</returns>
+	bool KillCheck();
+
+
+	///<summary>
+	///killcountを返します
+	///</summary>
+	int getKillcount()const;
+
+private:
+
+	///メンバ変数
+
+	int killcount;
+};
+
+
+///<summary>
 ///新しいオブジェクトを生成するクラス
 ///</summary>
-
-class TaskObject : public KillSystem
+class TaskObject : private KillSystem
 {
 public:
 ///メンバ変数
@@ -89,6 +137,20 @@ public:
 	virtual bool Finalize();
 
 
+	///<summary>
+	///オブジェクトを消去します
+	///</summary>
+	///<returns>
+	///オブジェクトを消去　true : オブジェクトを消去していない　false
+	///</returns>
+	bool TaskKill();
+
+	
+	///<summary>
+	///Killカウンタを返します
+	///</summary>
+	int  getKillCounter();
+
 private:
 
 ///メンバ変数
@@ -97,6 +159,7 @@ private:
 	///グループ名 , タスク名
 	///</summary>
 	std::pair<std::string, std::string> taskname;
+
 ///メンバ関数
 	
 };

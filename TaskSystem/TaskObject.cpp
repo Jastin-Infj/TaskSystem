@@ -1,7 +1,29 @@
 #include <iostream>
 #include <string>
 #include "TaskObject.h"
-#include "System.h"
+#include "System.h"		//taskobjectsを使用できるようにする
+
+/*コンストラクタ*/
+KillSystem::KillSystem()
+{
+	this->killcount = 0;
+}
+KillSystem::~KillSystem() {}
+/*消滅をさせることを依頼します*/
+void KillSystem::Kill()
+{
+	this->killcount++;
+}
+/*消滅させるかどうかを判定します*/
+bool KillSystem::KillCheck()
+{
+	return this->killcount > 0 ? true : false;
+}
+/*キルカウンターを返します*/
+int  KillSystem::getKillcount()const
+{
+	return this->killcount;
+}
 
 /*コンストラクタ*/
 TaskObject::TaskObject(std::pair<std::string, std::string> *taskname_)
@@ -55,4 +77,19 @@ bool TaskObject::Finalize()
 {
 	std::cout << this->taskname.second << "finalize()" << std::endl;
 	return true;
+}
+/*オブジェクトを消去します*/
+bool TaskObject::TaskKill()
+{
+	this->Kill();
+	if (this->getKillcount() > 0)
+	{
+		return true;
+	}
+	return false;
+}
+/*killのカウンタを返します*/
+int  TaskObject::getKillCounter()
+{
+	return this->getKillcount();
 }

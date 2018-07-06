@@ -13,54 +13,6 @@
 ///
 ///</returns>
 
-///<summary>
-///タスクを消滅させる構造体
-///</summary>
-struct KillSystem
-{
-	///メンバ変数
-
-	int killcount;
-
-	///メンバ関数
-
-	///<summary>
-	///コンストラクタ
-	///</summary>
-	KillSystem();
-
-
-	///<summary>
-	///デストラクタ
-	///</summary>
-	~KillSystem();
-
-
-	///<summary>
-	///オブジェクトの消去依頼をします
-	///</summary>
-	///<returns>
-	///なし
-	///</returns>
-	void Kill();
-
-
-	///<summary>
-	///消滅させるかどうかを判定します
-	///</summary>
-	///<returns>
-	///消滅させる　true : 消滅しない false
-	///</returns>
-	bool KillCheck();
-
-
-	///<summary>
-	///killcountを返します
-	///</summary>
-	int getKillcount()const;
-};
-
-
 class System
 {
 public:
