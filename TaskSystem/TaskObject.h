@@ -70,6 +70,7 @@ public:
 ///メンバ変数
 
 	typedef std::shared_ptr<TaskObject> SP;
+	typedef std::shared_ptr<TaskObject> WP;
 
 ///メンバ関数
 
@@ -138,18 +139,19 @@ public:
 
 
 	///<summary>
-	///オブジェクトを消去します
+	///キルカウンタを増加させます
 	///</summary>
 	///<returns>
-	///オブジェクトを消去　true : オブジェクトを消去していない　false
+	///なし
 	///</returns>
-	bool TaskKill();
+	void TaskKill();
 
-	
+
 	///<summary>
 	///Killカウンタを返します
 	///</summary>
-	int  getKillCounter();
+	int  getKillCounter()const;
+
 
 private:
 

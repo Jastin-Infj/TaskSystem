@@ -8,7 +8,7 @@ KillSystem::KillSystem()
 {
 	this->killcount = 0;
 }
-KillSystem::~KillSystem() {}
+KillSystem::~KillSystem(){}
 /*消滅をさせることを依頼します*/
 void KillSystem::Kill()
 {
@@ -34,7 +34,8 @@ TaskObject::TaskObject(std::pair<std::string, std::string> *taskname_)
 /*デストラクタ*/
 TaskObject::~TaskObject()
 {
-	std::cout << "~TaskObject()" << std::endl;
+	this->Finalize();
+	std::cout << this->getTaskname() << "~TaskObject()" << std::endl;
 }
 /*オブジェクトを生成します*/
 TaskObject::SP TaskObject::Create(std::pair<std::string,std::string> *taskname_,bool createflag)
@@ -78,18 +79,13 @@ bool TaskObject::Finalize()
 	std::cout << this->taskname.second << "finalize()" << std::endl;
 	return true;
 }
-/*オブジェクトを消去します*/
-bool TaskObject::TaskKill()
+/*キルカウンタを増加させます*/
+void TaskObject::TaskKill()
 {
 	this->Kill();
-	if (this->getKillcount() > 0)
-	{
-		return true;
-	}
-	return false;
 }
 /*killのカウンタを返します*/
-int  TaskObject::getKillCounter()
+int  TaskObject::getKillCounter()const
 {
 	return this->getKillcount();
 }

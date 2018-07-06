@@ -9,6 +9,7 @@ System::System()
 /*デストラクタ*/
 System::~System()
 {
+	this->TaskObjectDelete();
 	std::cout << "~System" << std::endl;
 }
 /*オブジェクトをシステムに登録します*/
@@ -61,12 +62,20 @@ void System::Render()
 void System::Destory()
 {
 	auto it = this->taskobjects.begin();
-	while(it != this->taskobjects.end())
+	while (it != this->taskobjects.end())
 	{
-		if ((*it)->getKillCounter() > 0)
+		if ((*it) == nullptr)
 		{
-			this->taskobjects.erase(it);
-			it = this->taskobjects.begin();
+			if ((*it)->getKillCounter() > 0)
+			{
+				*it = nullptr;
+				this->taskobjects.erase(it);
+				it = this->taskobjects.begin();
+			}
+			else
+			{
+				++it;
+			}
 		}
 		else
 		{
