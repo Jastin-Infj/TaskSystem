@@ -102,6 +102,10 @@ public:
 	///</summary>
 	std::string getTaskname()const;
 
+	///<summary>
+	///タスク名・グループ名を返します
+	///</summary>
+	std::pair<std::string, std::string> getObjectname()const;
 	
 	///<summary>
 	///初期化処理

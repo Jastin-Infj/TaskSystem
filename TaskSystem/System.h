@@ -31,12 +31,20 @@ public:
 	~System();
 
 	///<summary>
-	///オブジェクトをシステムに登録します
+	///オブジェクトのアドレス値をシステムに登録します
 	///</summary>
 	///<returns>
 	///なし
 	///</returns>
 	void Add(TaskObject::SP);
+
+	///<summary>
+	///オブジェクトのグループ名・タスク名をシステムに登録します
+	///</summary>
+	///<returns>
+	///なし
+	///</returns>
+	void Add(std::pair<std::string, std::string>&);
 
 
 	///<summary>
@@ -92,7 +100,24 @@ public:
 	///</returns>
 	void TaskObjectDelete();
 
+
+	///<summary>
+	///グループ名・タスク名で登録しているオブジェクトを削除します
+	///</summary>
+	///<returns>
+	///なし
+	///</returns>
+	void TaskNameDelete(std::string&,std::string&);
 private:
-	std::vector<TaskObject::SP> taskobjects;	//登録しているオブジェクト
+	std::vector<std::pair<std::string, std::string>, TaskObject::SP> taskobjects;
+	std::vector<std::pair<std::string, std::string>, TaskObject::SP> addobjects;
+
+	///<summary>
+	///登録予定のオブジェクトを統括用のオブジェクトに追加します
+	///</summary>
+	///<returns>
+	///なし
+	///</returns>
+	void toTaskObjects();
 };
 extern System* Tasksystem;

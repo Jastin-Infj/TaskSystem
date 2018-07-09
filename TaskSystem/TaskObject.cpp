@@ -46,6 +46,7 @@ TaskObject::SP TaskObject::Create(std::pair<std::string,std::string> *taskname_,
 		if (createflag)
 		{
 			to->Init();
+			Tasksystem->Add(*taskname_);
 			Tasksystem->Add(to);
 			return to;
 		}
@@ -56,6 +57,11 @@ TaskObject::SP TaskObject::Create(std::pair<std::string,std::string> *taskname_,
 std::string TaskObject::getTaskname()const
 {
 	return this->taskname.second;
+}
+/*グループ名・タスク名を返します*/
+std::pair<std::string, std::string> TaskObject::getObjectname()const
+{
+	return this->taskname;
 }
 /*初期化処理を行います*/
 bool TaskObject::Init()

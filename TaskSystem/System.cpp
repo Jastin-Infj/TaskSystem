@@ -15,81 +15,51 @@ System::~System()
 /*オブジェクトをシステムに登録します*/
 void System::Add(TaskObject::SP object)
 {
-	this->taskobjects.push_back(object);
+	//this->taskobjects.push_back(object);
+}
+/*オブジェクトをシステムに登録します*/
+void System::Add(std::pair<std::string, std::string>& taskname_)
+{
+	this->taskobjects.push_back(taskname_);
+}
+
+/*追加予定のオブジェクトを統括オブジェクトに登録します*/
+void System::toTaskObjects()
+{
+	
 }
 /*登録しているオブジェクトVectorを返します*/
 std::vector<TaskObject::SP> System::getTaskObjects()const
 {
-	return this->taskobjects;
+	
 }
 /*登録しているオブジェクトのタスク名を返します*/
 void System::TasknameOutput()const
 {
-	for (auto it = this->taskobjects.begin(); it != this->taskobjects.end(); ++it)
-	{
-		/*消去されていない場合*/
-		if ((*it)->getKillCounter() == 0)
-		{
-			std::cout << (*it)->getTaskname() << std::endl;
-		}
-	}
+	
 }
 /*登録しているオブジェクトの更新処理を行います*/
 void System::UpDate()
 {
-	for (auto it = this->taskobjects.begin(); it != this->taskobjects.end(); ++it)
-	{
-		/*消去されていない場合*/
-		if ((*it)->getKillCounter() == 0)
-		{
-			(*it)->UpDate();
-		}
-	}
+	
 }
 /*登録しているオブジェクトの描画処理を行います*/
 void System::Render()
 {
-	for (auto it = this->taskobjects.begin(); it != this->taskobjects.end(); ++it)
-	{
-		/*消去されていない場合*/
-		if ((*it)->getKillCounter() == 0)
-		{
-			(*it)->Render();
-		}
-	}
+	
 }
 /*登録しているオブジェクトの消去できるかをチェックします*/
 void System::Destory()
 {
-	auto it = this->taskobjects.begin();
-	while (it != this->taskobjects.end())
-	{
-		if ((*it) == nullptr)
-		{
-			if ((*it)->getKillCounter() > 0)
-			{
-				*it = nullptr;
-				this->taskobjects.erase(it);
-				it = this->taskobjects.begin();
-			}
-			else
-			{
-				++it;
-			}
-		}
-		else
-		{
-			++it;
-		}
-	}
+	
+}
+/*登録しているオブジェクトのグループ名・タスク名を検索してオブジェクトを削除します*/
+void System::TaskNameDelete(std::string& group_ , std::string& taskname_)
+{
+	
 }
 /*登録しているオブジェクトの全消去を行います*/
 void System::TaskObjectDelete()
 {
-	auto it = this->taskobjects.begin();
-	while (it != this->taskobjects.end())
-	{
-		this->taskobjects.erase(it);
-		it = this->taskobjects.begin();
-	}
+	
 }
