@@ -14,7 +14,7 @@ System::~System()
 /*オブジェクトをシステムに登録します*/
 void System::Add(TaskObject::SP object)
 {
-	this->taskobjects.push_back(object);
+	
 }
 /*登録しているオブジェクトVectorを返します*/
 std::vector<TaskObject::SP> System::getTaskObjects()const
@@ -63,10 +63,17 @@ void System::Destory()
 	auto it = this->taskobjects.begin();
 	while(it != this->taskobjects.end())
 	{
-		if ((*it)->getKillCounter() > 0)
+		if ((*it))
 		{
-			this->taskobjects.erase(it);
-			it = this->taskobjects.begin();
+			if ((*it)->getKillCounter() > 0)
+			{
+				this->taskobjects.erase(it);
+				it = this->taskobjects.begin();
+			}
+			else
+			{
+				++it;
+			}
 		}
 		else
 		{
@@ -83,4 +90,46 @@ void System::TaskObjectDelete()
 		this->taskobjects.erase(it);
 		it = this->taskobjects.begin();
 	}
+}
+/*グループ名・タスク名からオブジェクトの取得をします*/
+template <typename T>
+std::shared_ptr<T> System::GetTask(std::pair<std::string, std::string>* taskname_)
+{
+	for (auto it = this->taskobjects.begin(); it != this->taskobjects.end(); ++it)
+	{
+		if ((*it).second != nullptr)
+		{
+			//TaskObject::SP
+			if ((*it).second->getTaskname() == taskname_)
+			{
+				return (*it).second;
+			}
+			++it;
+		}
+		else
+		{
+			++it;
+		}
+	}
+}
+template<typename T>
+std::vector<std::pair<std::pair<std::string, std::string>, std::shared_ptr<T>>> System::GetTasks(std::pair<std::string, std::string> taskname_)  
+{
+	std::vector<std::pair<std::pair<std::string, std::string>, std::shared_ptr<T>>> searchObjects;
+	if (auto it = this->taskobjects.begin(); it != this->taskobjects.end(); ++it)
+	{
+		if ((*it).second != nullptr)
+		{
+			if ((*it).second->getTaskname() == taskname_)
+			{
+				searchObjects.push_back((*it).second);
+			}
+			++it;
+		}
+		else
+		{
+			++it;
+		}
+	}
+	return searchObjects;
 }

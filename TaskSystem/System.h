@@ -92,7 +92,22 @@ public:
 	///</returns>
 	void TaskObjectDelete();
 
+
+	///<summary>
+	///タスク名・グループ名を検索して、オブジェクト単体を取得します
+	///</summary>
+	template <typename T>
+	std::shared_ptr<T> GetTask(std::pair<std::string, std::string>*);
+
+
+	///<summary>
+	///タスク名・グループ名を検索して、オブジェクト複数を取得します
+	///</summary>
+	template<typename T>
+	std::vector<std::pair<std::pair<std::string, std::string>, std::shared_ptr<T>>> GetTasks(std::pair<std::string,std::string>);
+
+
 private:
-	std::vector<TaskObject::SP> taskobjects;	//登録しているオブジェクト
+	std::vector<std::pair<std::pair<std::string,std::string>,TaskObject::SP>> taskobjects;	//登録しているオブジェクト
 };
 extern System* Tasksystem;

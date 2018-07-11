@@ -10,7 +10,7 @@ KillSystem::KillSystem()
 }
 KillSystem::~KillSystem() {}
 /*消滅をさせることを依頼します*/
-void KillSystem::Kill()
+void KillSystem::KillCount()
 {
 	this->killcount++;
 }
@@ -26,10 +26,9 @@ int  KillSystem::getKillcount()const
 }
 
 /*コンストラクタ*/
-TaskObject::TaskObject(std::pair<std::string, std::string> *taskname_)
+TaskObject::TaskObject()
 {
-	this->taskname = *taskname_;
-	std::cout << "TaskObject" << std::endl;
+	std::cout << "TaskObject()" << std::endl;
 }
 /*デストラクタ*/
 TaskObject::~TaskObject()
@@ -39,12 +38,14 @@ TaskObject::~TaskObject()
 /*オブジェクトを生成します*/
 TaskObject::SP TaskObject::Create(std::pair<std::string,std::string> *taskname_,bool createflag)
 {
-	TaskObject::SP to = TaskObject::SP(new TaskObject(taskname_));
+	TaskObject::SP to = TaskObject::SP(new TaskObject());
 	if (to)
 	{
 		if (createflag)
 		{
-			to->Init();
+			/* タスク名を登録する */
+			to->Init(taskname_);
+			/* システムに登録をする */
 			Tasksystem->Add(to);
 			return to;
 		}
@@ -52,13 +53,14 @@ TaskObject::SP TaskObject::Create(std::pair<std::string,std::string> *taskname_,
 	return nullptr;
 }
 /*タスク名返します*/
-std::string TaskObject::getTaskname()const
+std::pair<std::string,std::string> TaskObject::getTaskname()const
 {
-	return this->taskname.second;
+	return this->taskname;
 }
 /*初期化処理を行います*/
-bool TaskObject::Init()
+bool TaskObject::Init(std::pair<std::string, std::string>* taskname_)
 {
+
 	std::cout << this->taskname.second << "init()" << std::endl;
 	return true;
 }
@@ -79,9 +81,9 @@ bool TaskObject::Finalize()
 	return true;
 }
 /*オブジェクトを消去します*/
-bool TaskObject::TaskKill()
+bool TaskObject::Kill()
 {
-	this->Kill();
+	this->KillCount();
 	if (this->getKillcount() > 0)
 	{
 		return true;
@@ -92,4 +94,9 @@ bool TaskObject::TaskKill()
 int  TaskObject::getKillCounter()
 {
 	return this->getKillcount();
+}
+/*グループ名・タスク名をセットします */
+void TaskObject::setTaskName(std::pair<std::string, std::string>& taskname_)
+{
+	this->taskname = taskname_;
 }

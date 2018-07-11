@@ -31,12 +31,12 @@ public:
 
 
 	///<summary>
-	///オブジェクトの消去依頼をします
+	///キルカウンタを増加させます
 	///</summary>
 	///<returns>
 	///なし
 	///</returns>
-	void Kill();
+	void KillCount();
 
 
 	///<summary>
@@ -73,13 +73,14 @@ public:
 
 ///メンバ関数
 
+
 	///<summary>
 	///コンストラクタ
 	///</summary>
 	///<returns>
 	///なし
 	///</returns>
-	TaskObject(std::pair<std::string,std::string>*);
+	TaskObject();
 
 
 	///<summary>
@@ -95,20 +96,15 @@ public:
 	///生成したスマートポインタ
 	///</returns>
 	static TaskObject::SP Create(std::pair < std::string, std::string>*, bool = true);
-
-	///<summary>
-	///タスク名を返します
-	///</summary>
-	std::string getTaskname()const;
-
 	
+
 	///<summary>
 	///初期化処理
 	///</summary>
 	///<returns>
 	///初期化処理終了 true
 	///</returns>
-	virtual bool Init();
+	virtual bool Init(std::pair<std::string, std::string>*);
 
 	///<summary>
 	///更新処理
@@ -143,13 +139,26 @@ public:
 	///<returns>
 	///オブジェクトを消去　true : オブジェクトを消去していない　false
 	///</returns>
-	bool TaskKill();
+	bool Kill();
 
 	
 	///<summary>
 	///Killカウンタを返します
 	///</summary>
 	int  getKillCounter();
+
+
+	///<summary>
+	///グループ名・タスク名を返します
+	///</summary>
+	std::pair<std::string,std::string> getTaskname()const;
+
+
+	///<summary>
+	///グループ名・タスク名をセットします
+	///</summary>
+	void setTaskName(std::pair<std::string, std::string>&);
+
 
 private:
 
