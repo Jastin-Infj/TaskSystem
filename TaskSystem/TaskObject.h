@@ -93,15 +93,6 @@ public:
 
 
 	///<summary>
-	///生成します
-	///</summary>
-	///<returns>
-	///生成したスマートポインタ
-	///</returns>
-	static TaskObject::SP Create(std::pair < std::string, std::string>*, bool = true);
-	
-
-	///<summary>
 	///初期化処理
 	///</summary>
 	///<returns>
@@ -137,18 +128,18 @@ public:
 
 
 	///<summary>
-	///オブジェクトを消去します
+	///キルカウンタを増加させます
 	///</summary>
 	///<returns>
 	///なし
 	///</returns>
 	void Kill();
 
-	
 	///<summary>
 	///Killカウンタを返します
 	///</summary>
-	int  getKillCounter();
+	int  getKillCounter()const;
+
 
 
 	///<summary>

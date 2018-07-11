@@ -31,7 +31,6 @@ public:
 	~System();
 
 	
-	///<summary>
 	///タスクシステムの更新処理
 	///</summary>
 	///<returns>
@@ -164,6 +163,7 @@ private:
 	///存在する true 存在しない false
 	///</returns>
 	bool CheckKillTask()const;
+
 
 };
 extern System* Tasksystem;

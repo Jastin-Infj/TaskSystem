@@ -147,5 +147,4 @@ void System::TaskObjectDelete()
 			it = this->taskobjects.begin();
 		}
 	}
-
 }

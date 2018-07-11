@@ -8,7 +8,7 @@ KillSystem::KillSystem()
 {
 	this->killcount = 0;
 }
-KillSystem::~KillSystem() {}
+KillSystem::~KillSystem(){}
 /*Á–Å‚ğ‚³‚¹‚é‚±‚Æ‚ğˆË—Š‚µ‚Ü‚·*/
 void KillSystem::KillCount()
 {
@@ -70,7 +70,7 @@ void TaskObject::Kill()
 	this->NextTask = true;
 }
 /*kill‚ÌƒJƒEƒ“ƒ^‚ğ•Ô‚µ‚Ü‚·*/
-int  TaskObject::getKillCounter()
+int  TaskObject::getKillCounter()const
 {
 	return this->getKillcount();
 }
