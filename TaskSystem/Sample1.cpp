@@ -38,6 +38,7 @@ Sample1::SP Sample1::Create(std::pair < std::string, std::string>* taskname_, bo
 		}
 		if (flag)
 		{
+			to->me = to;
 			Tasksystem->Add(&to->getObjectMe(to));
 		}
 		return to;
