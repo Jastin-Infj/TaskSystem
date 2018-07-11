@@ -33,26 +33,7 @@ TaskObject::TaskObject()
 /*デストラクタ*/
 TaskObject::~TaskObject()
 {
-	std::cout << "~TaskObject()" << std::endl;
-}
-/*オブジェクトを生成します*/
-TaskObject::SP TaskObject::Create(std::pair<std::string,std::string> *taskname_,bool createflag)
-{
-	TaskObject::SP to = TaskObject::SP(new TaskObject());
-	if (to)
-	{
-		if (createflag)
-		{
-			/* タスク名を登録する */
-			to->Init(taskname_);
-			/* 自分自身のデータを持つようにする */
-			to->me = to;
-			/* システムに登録をする */
-			Tasksystem->Add(&to->getObjectMe());
-			return to;
-		}
-	}
-	return nullptr;
+	std::cout << this->getTaskname().second <<"~TaskObject()" << std::endl;
 }
 /*タスク名返します*/
 std::pair<std::string,std::string> TaskObject::getTaskname()const
@@ -62,7 +43,7 @@ std::pair<std::string,std::string> TaskObject::getTaskname()const
 /*初期化処理を行います*/
 bool TaskObject::Init(std::pair<std::string, std::string>* taskname_)
 {
-
+	this->NextTask = false;
 	std::cout << this->taskname.second << "init()" << std::endl;
 	return true;
 }
@@ -83,19 +64,20 @@ bool TaskObject::Finalize()
 	return true;
 }
 /*オブジェクトを消去します*/
-bool TaskObject::Kill()
+void TaskObject::Kill()
 {
 	this->KillCount();
-	if (this->getKillcount() > 0)
-	{
-		return true;
-	}
-	return false;
+	this->NextTask = true;
 }
 /*killのカウンタを返します*/
 int  TaskObject::getKillCounter()
 {
 	return this->getKillcount();
+}
+/*次回のタスクが生成できるかを返します*/
+bool TaskObject::getNextTask()const
+{
+	return this->NextTask;
 }
 /*グループ名・タスク名をセットします */
 void TaskObject::setTaskName(std::pair<std::string, std::string>& taskname_)
@@ -103,18 +85,10 @@ void TaskObject::setTaskName(std::pair<std::string, std::string>& taskname_)
 	this->taskname = taskname_;
 }
 /* 自分自身のオブジェクトを返します */
-std::pair<std::pair<std::string, std::string>, TaskObject::SP>* TaskObject::getObjectMe()const
+std::pair<std::pair<std::string, std::string>, TaskObject::SP> TaskObject::getObjectMe(const TaskObject::SP& obj)const
 {
-	std::pair<std::pair<std::string, std::string>, TaskObject::SP>* object = new std::pair<std::pair<std::string, std::string>, TaskObject::SP>();
-	object->first = this->taskname;
-	object->second = me.lock();
-	return object;
-}
-/* 自分自身のオブジェクトを返します */
-std::pair<std::pair<std::string, std::string>, TaskObject::SP> TaskObject::getObjectMe()
-{
-	std::pair<std::pair<std::string, std::string>, TaskObject::SP> object;
+	std::pair<std::pair<std::string,std::string>,TaskObject::SP> object;
 	object.first = this->taskname;
-	object.second = me.lock();
+	object.second = obj;
 	return object;
 }

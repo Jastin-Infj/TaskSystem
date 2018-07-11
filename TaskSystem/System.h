@@ -30,8 +30,18 @@ public:
 	///</summary>
 	~System();
 
+	
 	///<summary>
-	///オブジェクトをシステムに登録します
+	///タスクシステムの更新処理
+	///</summary>
+	///<returns>
+	///なし
+	///</returns>
+	void UpDate();
+
+
+	///<summary>
+	///オブジェクトをシステムに仮登録します
 	///</summary>
 	///<returns>
 	///なし
@@ -49,12 +59,75 @@ public:
 
 
 	///<summary>
+	///登録されているオブジェクトを全部消去を行います
+	///</summary>
+	///<returns>
+	///なし
+	///</returns>
+	void TaskObjectDelete();
+	
+
+	///<summary>
+	///タスク名・グループ名を検索して、オブジェクト単体を取得します
+	///</summary>
+	template <class T>
+	std::shared_ptr<T> GetTask(std::pair<std::string, std::string>& taskname_)
+	{
+		for (auto it = this->taskobjects.begin(); it != this->taskobjects.end(); ++it)
+		{
+			if ((*it).second != nullptr)
+			{
+				if ((*it).second->getTaskname() == taskname_)
+				{
+					return std::static_pointer_cast<T>((*it).second);
+				}
+			}
+		}
+		return nullptr;
+	}
+
+
+	///<summary>
+	///タスク名・グループ名を検索して、オブジェクト複数を取得します
+	///</summary>
+	template<class T>
+	std::shared_ptr<std::vector<std::shared_ptr<T>>> GetTasks(std::pair<std::string, std::string> taskname_)
+	{
+		std::shared_ptr<std::vector<std::shared_ptr<T>>> searchObjects = std::shared_ptr<std::vector<std::shared_ptr<T>>>(new std::vector<std::shared_ptr<T>>());
+		for (auto it = this->taskobjects.begin(); it != this->taskobjects.end(); ++it)
+		{
+			if ((*it).second != nullptr)
+			{
+				if ((*it).second->getTaskname() == taskname_)
+				{
+					searchObjects->push_back(std::static_pointer_cast<T>((*it).second));
+				}
+			}
+		}
+		return searchObjects;
+	}
+
+private:
+	std::vector<std::pair<std::pair<std::string,std::string>,TaskObject::SP>> taskobjects;			//登録しているオブジェクト
+	std::vector<std::pair<std::pair<std::string, std::string>, TaskObject::SP>> addobjects;			//登録予定のオブジェクト
+
+
+	///<summary>
+	///登録予定のオブジェクトを登録します
+	///<summary>
+	///<returns>
+	///なし
+	///</returns>
+	void TaskApplication();
+
+
+	///<summary>
 	///登録されているオブジェクトの更新処理を行います
 	///</summary>
 	///<returns>
 	///なし
 	///</returns>
-	void UpDate();
+	void T_UpDate();
 
 
 	///<summary>
@@ -63,7 +136,7 @@ public:
 	///<returns>
 	///なし
 	///</returns>
-	void Render();
+	void T_Render();
 
 
 	///<summary>
@@ -72,37 +145,25 @@ public:
 	///<returns>
 	///なし
 	///</returns>
-	void Destory();
+	void T_Destory();
 
 
 	///<summary>
-	///登録されているオブジェクトを全部消去を行います
+	///登録予定のオブジェクトが存在するかを判定します
 	///</summary>
 	///<returns>
-	///なし
+	///存在する true 存在しない false
 	///</returns>
-	void TaskObjectDelete();
-
-	
-	///<summary>
-	///
+	bool AddObjectCheck()const;
 
 
 	///<summary>
-	///タスク名・グループ名を検索して、オブジェクト単体を取得します
+	///登録オブジェクトから消去予定のオブジェクトがないかを判定します
 	///</summary>
-	template <typename T>
-	std::shared_ptr<T> GetTask(std::pair<std::string, std::string>*);
+	///<returns>
+	///存在する true 存在しない false
+	///</returns>
+	bool CheckKillTask()const;
 
-
-	///<summary>
-	///タスク名・グループ名を検索して、オブジェクト複数を取得します
-	///</summary>
-	template<typename T>
-	std::shared_ptr<std::vector<std::shared_ptr<T>>> GetTasks(std::pair<std::string,std::string>);
-
-
-private:
-	std::vector<std::pair<std::pair<std::string,std::string>,TaskObject::SP>> taskobjects;	//登録しているオブジェクト
 };
 extern System* Tasksystem;

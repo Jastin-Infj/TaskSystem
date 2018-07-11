@@ -1,4 +1,5 @@
 #include "System.h"
+#include <iostream>
 #include <string>
 
 /*コンストラクタ*/
@@ -9,15 +10,61 @@ System::System()
 /*デストラクタ*/
 System::~System()
 {
+	this->TaskObjectDelete();
 	std::cout << "~System" << std::endl;
 }
-/*オブジェクトをシステムに登録します*/
+/*タスクシステムの更新処理*/
+void System::UpDate()
+{
+	this->T_UpDate();
+	this->T_Render();
+	if (this->AddObjectCheck() || this->CheckKillTask())
+	{
+		/*登録予定のタスクを登録する*/
+		this->TaskApplication();
+		/*削除予定のタスクを削除する*/
+		this->T_Destory();
+	}
+}
+/*オブジェクトをシステムに仮登録します*/
 void System::Add(std::pair<std::pair<std::string,std::string>,TaskObject::SP>* addobject)
 {
-	this->taskobjects.push_back(*addobject);
+	this->addobjects.push_back(*addobject);
 }
-/* 登録しているオブジェクトタスクを全て返します */
+/*登録予定のオブジェクトを登録します*/
+void System::TaskApplication()
+{
+	for (auto it = this->addobjects.begin(); it != this->addobjects.end(); ++it)
+	{
+		std::pair<std::pair<std::string, std::string>, TaskObject::SP> addobject;
+		addobject = (*it);
 
+		/*次回はここから処理*/
+		if (addobject.second->getNextTask())
+		{
+			this->taskobjects.push_back(addobject);
+		}
+	}
+	/*登録予定したオブジェクトデータを全て消去する*/
+	addobjects.clear();
+}
+/*登録されているオブジェクトがあるかを判定します*/
+bool System::AddObjectCheck()const
+{
+	return this->addobjects.size() > 0;
+}
+/*登録オブジェクトに消去するオブジェクトがないかを判定します*/
+bool System::CheckKillTask()const
+{
+	for (int i = 0; i < this->addobjects.size(); ++i)
+	{
+		if (this->taskobjects[i].second->getKillCounter() > 0)
+		{
+			return true;
+		}
+	}
+	return false;
+}
 /*登録しているオブジェクトのタスク名を返します*/
 void System::TasknameOutput()const
 {
@@ -31,7 +78,7 @@ void System::TasknameOutput()const
 	}
 }
 /*登録しているオブジェクトの更新処理を行います*/
-void System::UpDate()
+void System::T_UpDate()
 {
 	for (auto it = this->taskobjects.begin(); it != this->taskobjects.end(); ++it)
 	{
@@ -43,7 +90,7 @@ void System::UpDate()
 	}
 }
 /*登録しているオブジェクトの描画処理を行います*/
-void System::Render()
+void System::T_Render()
 {
 	for (auto it = this->taskobjects.begin(); it != this->taskobjects.end(); ++it)
 	{
@@ -55,7 +102,7 @@ void System::Render()
 	}
 }
 /*登録しているオブジェクトの消去できるかをチェックします*/
-void System::Destory()
+void System::T_Destory()
 {
 	auto it = this->taskobjects.begin();
 	while(it != this->taskobjects.end())
@@ -65,6 +112,8 @@ void System::Destory()
 			if ((*it).second->getKillCounter() > 0)
 			{
 				this->taskobjects.erase(it);
+				/*次回予定のタスクを追加します*/
+				this->TaskApplication();			
 				it = this->taskobjects.begin();
 			}
 			else
@@ -81,48 +130,22 @@ void System::Destory()
 /*登録しているオブジェクトの全消去を行います*/
 void System::TaskObjectDelete()
 {
-	auto it = this->taskobjects.begin();
-	while (it != this->taskobjects.end())
 	{
-		this->taskobjects.erase(it);
-		it = this->taskobjects.begin();
-	}
-}
-/*グループ名・タスク名からオブジェクトの取得をします*/
-template <typename T>
-std::shared_ptr<T> System::GetTask(std::pair<std::string, std::string>* taskname_)
-{
-	for (auto it = this->taskobjects.begin(); it != this->taskobjects.end(); ++it)
-	{
-		if ((*it).second != nullptr)
+		auto it = this->taskobjects.begin();
+		while (it != this->taskobjects.end())
 		{
-			//TaskObject::SP
-			if ((*it).second->getTaskname() == taskname_)
-			{
-				return (*it).second;
-			}
-			++it;
-		}
-		else
-		{
-			++it;
+			this->taskobjects.erase(it);
+			it = this->taskobjects.begin();
 		}
 	}
-	return nullptr;
-}
-template<class T>
-std::shared_ptr<std::vector<std::shared_ptr<T>>> System::GetTasks(std::pair<std::string, std::string> taskname_)  
-{
-	std::shared_ptr<std::vector<std::shared_ptr<T>>> searchObjects = std::shared_ptr<std::vector<std::shared_ptr<T>>>(new std::vector<std::shared_ptr<T>>());
-	if (auto it = this->taskobjects.begin(); it != this->taskobjects.end(); ++it)
+	
 	{
-		if ((*it).second != nullptr)
+		auto it = this->addobjects.begin();
+		while (it != this->addobjects.end())
 		{
-			if ((*it).second->getTaskname() == taskname_)
-			{
-				searchObjects->push_back(std::static_pointer_cast<T>((*it).second));
-			}
+			this->addobjects.erase(it);
+			it = this->taskobjects.begin();
 		}
 	}
-	return searchObjects;
+
 }

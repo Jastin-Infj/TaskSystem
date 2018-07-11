@@ -140,9 +140,9 @@ public:
 	///オブジェクトを消去します
 	///</summary>
 	///<returns>
-	///オブジェクトを消去　true : オブジェクトを消去していない　false
+	///なし
 	///</returns>
-	bool Kill();
+	void Kill();
 
 	
 	///<summary>
@@ -166,13 +166,13 @@ public:
 	///<summary>
 	///オブジェクトのポインタ返します
 	///</summary>
-	std::pair<std::pair<std::string, std::string>, TaskObject::SP>* getObjectMe()const;
+	std::pair<std::pair<std::string, std::string>, TaskObject::SP> getObjectMe(const TaskObject::SP&)const;
 
 
 	///<summary>
-	///オブジェクトの実体を返します
+	///次回のタスクが生成できる状況かを返します
 	///</summary>
-	std::pair<std::pair<std::string, std::string>, TaskObject::SP> getObjectMe();
+	bool getNextTask()const;
 
 private:
 
@@ -183,6 +183,13 @@ private:
 	///</summary>
 	std::pair<std::string, std::string> taskname;
 
+	///<summary>
+	///終了時に次のタスクが生成できるか
+	///</summary>
+	bool NextTask;
+
 ///メンバ関数
 	
+
+
 };
