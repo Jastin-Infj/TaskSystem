@@ -1,5 +1,9 @@
 #pragma once
 #include "TaskObject.h"
+
+/*
+このクラスはサンプル１です
+*/
 class Sample1 : public TaskObject
 {
 public:
@@ -10,6 +14,7 @@ public:
 
 	bool Init(std::pair<std::string, std::string>*)override;
 	
+	/* 生成をします */
 	static Sample1::SP Create(std::pair < std::string, std::string>*, bool = true);
 private:
 

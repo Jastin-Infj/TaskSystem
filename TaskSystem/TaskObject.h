@@ -70,6 +70,9 @@ public:
 ///メンバ変数
 
 	typedef std::shared_ptr<TaskObject> SP;
+	typedef std::weak_ptr<TaskObject>   WP;
+
+	TaskObject::WP me;			//自分自身のデータを保持している
 
 ///メンバ関数
 
@@ -159,6 +162,17 @@ public:
 	///</summary>
 	void setTaskName(std::pair<std::string, std::string>&);
 
+
+	///<summary>
+	///オブジェクトのポインタ返します
+	///</summary>
+	std::pair<std::pair<std::string, std::string>, TaskObject::SP>* getObjectMe()const;
+
+
+	///<summary>
+	///オブジェクトの実体を返します
+	///</summary>
+	std::pair<std::pair<std::string, std::string>, TaskObject::SP> getObjectMe();
 
 private:
 

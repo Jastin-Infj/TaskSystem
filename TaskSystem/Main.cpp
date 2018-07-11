@@ -6,6 +6,8 @@
 
 System* Tasksystem;
 
+
+
 void Test()
 {
 	Tasksystem = new System();

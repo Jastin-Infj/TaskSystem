@@ -18,24 +18,24 @@
     <ClCompile Include="Main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Sample1.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
     <ClCompile Include="System.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="TaskObject.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Sample1.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Sample1.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
     <ClInclude Include="System.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="TaskObject.h">
-      <Filter>ソース ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Sample1.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
   </ItemGroup>

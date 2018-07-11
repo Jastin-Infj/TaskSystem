@@ -45,8 +45,10 @@ TaskObject::SP TaskObject::Create(std::pair<std::string,std::string> *taskname_,
 		{
 			/* タスク名を登録する */
 			to->Init(taskname_);
+			/* 自分自身のデータを持つようにする */
+			to->me = to;
 			/* システムに登録をする */
-			Tasksystem->Add(to);
+			Tasksystem->Add(&to->getObjectMe());
 			return to;
 		}
 	}
@@ -99,4 +101,20 @@ int  TaskObject::getKillCounter()
 void TaskObject::setTaskName(std::pair<std::string, std::string>& taskname_)
 {
 	this->taskname = taskname_;
+}
+/* 自分自身のオブジェクトを返します */
+std::pair<std::pair<std::string, std::string>, TaskObject::SP>* TaskObject::getObjectMe()const
+{
+	std::pair<std::pair<std::string, std::string>, TaskObject::SP>* object = new std::pair<std::pair<std::string, std::string>, TaskObject::SP>();
+	object->first = this->taskname;
+	object->second = me.lock();
+	return object;
+}
+/* 自分自身のオブジェクトを返します */
+std::pair<std::pair<std::string, std::string>, TaskObject::SP> TaskObject::getObjectMe()
+{
+	std::pair<std::pair<std::string, std::string>, TaskObject::SP> object;
+	object.first = this->taskname;
+	object.second = me.lock();
+	return object;
 }

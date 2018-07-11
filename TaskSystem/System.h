@@ -36,16 +36,7 @@ public:
 	///<returns>
 	///なし
 	///</returns>
-	void Add(TaskObject::SP);
-
-
-	///<summary>
-	///登録しているオブジェクトVectorを返します
-	///</summary>
-	///<returns>
-	///現在登録しているオブジェクトVector
-	///</returns>
-	std::vector<TaskObject::SP> getTaskObjects()const;
+	void Add(std::pair<std::pair<std::string, std::string>, TaskObject::SP>*);
 
 
 	///<summary>
@@ -92,6 +83,10 @@ public:
 	///</returns>
 	void TaskObjectDelete();
 
+	
+	///<summary>
+	///
+
 
 	///<summary>
 	///タスク名・グループ名を検索して、オブジェクト単体を取得します
@@ -104,7 +99,7 @@ public:
 	///タスク名・グループ名を検索して、オブジェクト複数を取得します
 	///</summary>
 	template<typename T>
-	std::vector<std::pair<std::pair<std::string, std::string>, std::shared_ptr<T>>> GetTasks(std::pair<std::string,std::string>);
+	std::shared_ptr<std::vector<std::shared_ptr<T>>> GetTasks(std::pair<std::string,std::string>);
 
 
 private:

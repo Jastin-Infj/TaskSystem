@@ -12,24 +12,21 @@ System::~System()
 	std::cout << "~System" << std::endl;
 }
 /*オブジェクトをシステムに登録します*/
-void System::Add(TaskObject::SP object)
+void System::Add(std::pair<std::pair<std::string,std::string>,TaskObject::SP>* addobject)
 {
-	
+	this->taskobjects.push_back(*addobject);
 }
-/*登録しているオブジェクトVectorを返します*/
-std::vector<TaskObject::SP> System::getTaskObjects()const
-{
-	return this->taskobjects;
-}
+/* 登録しているオブジェクトタスクを全て返します */
+
 /*登録しているオブジェクトのタスク名を返します*/
 void System::TasknameOutput()const
 {
 	for (auto it = this->taskobjects.begin(); it != this->taskobjects.end(); ++it)
 	{
 		/*消去されていない場合*/
-		if ((*it)->getKillCounter() == 0)
+		if ((*it).second->getKillCounter() == 0)
 		{
-			std::cout << (*it)->getTaskname() << std::endl;
+			std::cout << (*it).second->getTaskname().second << std::endl;
 		}
 	}
 }
@@ -39,9 +36,9 @@ void System::UpDate()
 	for (auto it = this->taskobjects.begin(); it != this->taskobjects.end(); ++it)
 	{
 		/*消去されていない場合*/
-		if ((*it)->getKillCounter() == 0)
+		if ((*it).second->getKillCounter() == 0)
 		{
-			(*it)->UpDate();
+			(*it).second->UpDate();
 		}
 	}
 }
@@ -51,9 +48,9 @@ void System::Render()
 	for (auto it = this->taskobjects.begin(); it != this->taskobjects.end(); ++it)
 	{
 		/*消去されていない場合*/
-		if ((*it)->getKillCounter() == 0)
+		if ((*it).second->getKillCounter() == 0)
 		{
-			(*it)->Render();
+			(*it).second->Render();
 		}
 	}
 }
@@ -63,9 +60,9 @@ void System::Destory()
 	auto it = this->taskobjects.begin();
 	while(it != this->taskobjects.end())
 	{
-		if ((*it))
+		if ((*it).second)
 		{
-			if ((*it)->getKillCounter() > 0)
+			if ((*it).second->getKillCounter() > 0)
 			{
 				this->taskobjects.erase(it);
 				it = this->taskobjects.begin();
@@ -111,24 +108,20 @@ std::shared_ptr<T> System::GetTask(std::pair<std::string, std::string>* taskname
 			++it;
 		}
 	}
+	return nullptr;
 }
-template<typename T>
-std::vector<std::pair<std::pair<std::string, std::string>, std::shared_ptr<T>>> System::GetTasks(std::pair<std::string, std::string> taskname_)  
+template<class T>
+std::shared_ptr<std::vector<std::shared_ptr<T>>> System::GetTasks(std::pair<std::string, std::string> taskname_)  
 {
-	std::vector<std::pair<std::pair<std::string, std::string>, std::shared_ptr<T>>> searchObjects;
+	std::shared_ptr<std::vector<std::shared_ptr<T>>> searchObjects = std::shared_ptr<std::vector<std::shared_ptr<T>>>(new std::vector<std::shared_ptr<T>>());
 	if (auto it = this->taskobjects.begin(); it != this->taskobjects.end(); ++it)
 	{
 		if ((*it).second != nullptr)
 		{
 			if ((*it).second->getTaskname() == taskname_)
 			{
-				searchObjects.push_back((*it).second);
+				searchObjects->push_back(std::static_pointer_cast<T>((*it).second));
 			}
-			++it;
-		}
-		else
-		{
-			++it;
 		}
 	}
 	return searchObjects;
