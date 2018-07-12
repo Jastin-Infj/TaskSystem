@@ -13,22 +13,22 @@
 ///
 ///</returns>
 
-class System
+class TaskSystem
 {
 public:
-	typedef std::shared_ptr<System> SP;
+	typedef std::shared_ptr<TaskSystem> SP;
 
 
 	///<summary>
 	///コンストラクタ
 	///</summary>
-	System();
+	TaskSystem();
 
 	
 	///<summary>
 	///デストラクタ
 	///</summary>
-	~System();
+	~TaskSystem();
 
 	
 	///タスクシステムの更新処理
@@ -87,10 +87,51 @@ public:
 
 
 	///<summary>
+	///グループ名を検索して、オブジェクト単体を取得します
+	///</summary>
+	template <class T>
+	std::shared_ptr<T> GetTask_GroupName(std::string& groupname_)
+	{
+		for (auto it = this->taskobjects.begin(); it != this->taskobjects.end(); ++it)
+		{
+			if ((*it).second != nullptr)
+			{
+				if ((*it).second->getTaskname().first == groupname_)
+				{
+					return std::static_pointer_cast<T>((*it).second);
+				}
+			}
+		}
+		return nullptr;
+	}
+
+
+
+	///<summary>
+	///タスク名を検索して、オブジェクト単体を取得します
+	///</summary>
+	template <class T>
+	std::shared_ptr<T> GetTask_TaskName(std::string& taskname_)
+	{
+		for (auto it = this->taskobjects.begin(); it != this->taskobjects.end(); ++it)
+		{
+			if ((*it).second != nullptr)
+			{
+				if ((*it).second->getTaskname().second == taskname_)
+				{
+					return std::static_pointer_cast<T>((*it).second);
+				}
+			}
+		}
+		return nullptr;
+	}
+
+
+	///<summary>
 	///タスク名・グループ名を検索して、オブジェクト複数を取得します
 	///</summary>
 	template<class T>
-	std::shared_ptr<std::vector<std::shared_ptr<T>>> GetTasks(std::pair<std::string, std::string> taskname_)
+	std::shared_ptr<std::vector<std::shared_ptr<T>>> GetTasks(std::pair<std::string, std::string>& taskname_)
 	{
 		std::shared_ptr<std::vector<std::shared_ptr<T>>> searchObjects = std::shared_ptr<std::vector<std::shared_ptr<T>>>(new std::vector<std::shared_ptr<T>>());
 		for (auto it = this->taskobjects.begin(); it != this->taskobjects.end(); ++it)
@@ -105,6 +146,48 @@ public:
 		}
 		return searchObjects;
 	}
+
+
+	///<summary>
+	///グループ名を検索して、オブジェクト複数を取得します
+	///</summary>
+	template<class T>
+	std::shared_ptr<std::vector<std::shared_ptr<T>>> GetTasks_GroupName(std::string& groupname_)
+	{
+		std::shared_ptr<std::vector<std::shared_ptr<T>>> searchObjects = std::shared_ptr<std::vector<std::shared_ptr<T>>>(new std::vector<std::shared_ptr<T>>());
+		for (auto it = this->taskobjects.begin(); it != this->taskobjects.end(); ++it)
+		{
+			if ((*it).second != nullptr)
+			{
+				if ((*it).second->getTaskname().first == groupname_)
+				{
+					searchObjects->push_back(std::static_pointer_cast<T>((*it).second));
+				}
+			}
+		}
+		return searchObjects;
+	}
+
+	///<summary>
+	///タスク名を検索して、オブジェクト複数を取得します
+	///</summary>
+	template<class T>
+	std::shared_ptr<std::vector<std::shared_ptr<T>>> GetTasks_TaskName(std::string& taskname_)
+	{
+		std::shared_ptr<std::vector<std::shared_ptr<T>>> searchObjects = std::shared_ptr<std::vector<std::shared_ptr<T>>>(new std::vector<std::shared_ptr<T>>());
+		for (auto it = this->taskobjects.begin(); it != this->taskobjects.end(); ++it)
+		{
+			if ((*it).second != nullptr)
+			{
+				if ((*it).second->getTaskname().second == taskname_)
+				{
+					searchObjects->push_back(std::static_pointer_cast<T>((*it).second));
+				}
+			}
+		}
+		return searchObjects;
+	}
+
 
 private:
 	std::vector<std::pair<std::pair<std::string,std::string>,TaskObject::SP>> taskobjects;			//登録しているオブジェクト
@@ -164,6 +247,5 @@ private:
 	///</returns>
 	bool CheckKillTask()const;
 
-
 };
-extern System* Tasksystem;
+extern TaskSystem* taskSystem;

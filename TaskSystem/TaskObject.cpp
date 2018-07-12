@@ -1,26 +1,25 @@
 #include <iostream>
 #include <string>
 #include "TaskObject.h"
-#include "System.h"		//taskobjectsを使用できるようにする
 
 /*コンストラクタ*/
-KillSystem::KillSystem()
+KillTaskSystem::KillTaskSystem()
 {
 	this->killcount = 0;
 }
-KillSystem::~KillSystem(){}
+KillTaskSystem::~KillTaskSystem(){}
 /*消滅をさせることを依頼します*/
-void KillSystem::KillCount()
+void KillTaskSystem::KillCount()
 {
 	this->killcount++;
 }
 /*消滅させるかどうかを判定します*/
-bool KillSystem::KillCheck()
+bool KillTaskSystem::KillCheck()
 {
 	return this->killcount > 0 ? true : false;
 }
 /*キルカウンターを返します*/
-int  KillSystem::getKillcount()const
+int  KillTaskSystem::getKillcount()const
 {
 	return this->killcount;
 }
@@ -29,6 +28,8 @@ int  KillSystem::getKillcount()const
 TaskObject::TaskObject()
 {
 	this->setNextTask(true);
+	this->setPause(false);
+
 	std::cout << "TaskObject()" << std::endl;
 }
 /*デストラクタ*/
@@ -84,9 +85,19 @@ void TaskObject::setTaskName(std::pair<std::string, std::string>& taskname_)
 	this->taskname = taskname_;
 }
 /*次回生成出来るフラグを設定します*/
-void TaskObject::setNextTask(const bool& flag)
+void TaskObject::setNextTask(const bool flag)
 {
 	this->NextTask = flag;
+}
+/*ポーズ設定を行います*/
+void TaskObject::setPause(const bool flag)
+{
+	this->isPause = flag;
+}
+/*ポーズフラグを返します*/
+bool TaskObject::getisPause()const
+{
+	return this->isPause;
 }
 /* 自分自身のオブジェクトを返します */
 std::pair<std::pair<std::string, std::string>, TaskObject::SP> TaskObject::getObjectMe(const TaskObject::SP& obj)const

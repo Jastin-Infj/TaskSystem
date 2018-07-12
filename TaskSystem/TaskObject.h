@@ -12,7 +12,7 @@
 ///<summary>
 ///タスクを消滅させるクラス
 ///</summary>
-class KillSystem
+class KillTaskSystem
 {
 public:
 
@@ -21,13 +21,13 @@ public:
 	///<summary>
 	///コンストラクタ
 	///</summary>
-	KillSystem();
+	KillTaskSystem();
 
 
 	///<summary>
 	///デストラクタ
 	///</summary>
-	~KillSystem();
+	~KillTaskSystem();
 
 
 	///<summary>
@@ -57,6 +57,9 @@ private:
 
 	///メンバ変数
 
+	///<summary>
+	///キルカウンタ
+	///</summary>
 	int killcount;
 };
 
@@ -64,15 +67,27 @@ private:
 ///<summary>
 ///新しいオブジェクトを生成するクラス
 ///</summary>
-class TaskObject : private KillSystem
+class TaskObject : private KillTaskSystem
 {
 public:
 ///メンバ変数
 
+	///<summary>
+	///スマートポインタ
+	///</summary>
 	typedef std::shared_ptr<TaskObject> SP;
+
+
+	///<summary>
+	///ウィークポインタ
+	///</summary>
 	typedef std::weak_ptr<TaskObject>   WP;
 
-	TaskObject::WP me;			//自分自身のデータを保持している
+
+	///<summary>
+	///自分のデータ
+	///</summary>
+	TaskObject::WP me;
 
 ///メンバ関数
 
@@ -169,7 +184,26 @@ public:
 	///<summary>
 	///次回のタスクを生成出来るかを変更します
 	///</summary>
-	void setNextTask(const bool&);
+	void setNextTask(const bool);
+
+
+	///<summary>
+	///ポーズフラグを返します
+	///</summary>
+	///<returns>
+	///ポーズ中:true ポーズではない:false
+	///</returns>
+	bool getisPause()const;
+
+
+	///<summary>
+	///<para>ポーズを設定します</para>
+	///<para>中断する true 中断解除 false </para>
+	///</summary>
+	///<returns>
+	///なし
+	///</returns>
+	void setPause(const bool);
 
 private:
 
@@ -184,6 +218,13 @@ private:
 	///終了時に次のタスクが生成できるか
 	///</summary>
 	bool NextTask;
+
+	///<summary>
+	///<para>ポーズ処理フラグ</para>
+	///<para>ポーズ中:true ポーズしていない:false</para>
+	///</summary>
+	bool isPause;
+
 
 ///メンバ関数
 	

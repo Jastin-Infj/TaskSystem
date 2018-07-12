@@ -3,18 +3,18 @@
 #include <string>
 
 /*コンストラクタ*/
-System::System()
+TaskSystem::TaskSystem()
 {
-	std::cout << "System" << std::endl;
+	std::cout << "TaskSystem" << std::endl;
 }
 /*デストラクタ*/
-System::~System()
+TaskSystem::~TaskSystem()
 {
 	this->TaskObjectDelete();
-	std::cout << "~System" << std::endl;
+	std::cout << "~TaskSystem" << std::endl;
 }
 /*タスクシステムの更新処理*/
-void System::UpDate()
+void TaskSystem::UpDate()
 {
 	this->T_UpDate();
 	this->T_Render();
@@ -27,12 +27,12 @@ void System::UpDate()
 	}
 }
 /*オブジェクトをシステムに仮登録します*/
-void System::Add(std::pair<std::pair<std::string,std::string>,TaskObject::SP>* addobject)
+void TaskSystem::Add(std::pair<std::pair<std::string,std::string>,TaskObject::SP>* addobject)
 {
 	this->addobjects.push_back(*addobject);
 }
 /*登録予定のオブジェクトを登録します*/
-void System::TaskApplication()
+void TaskSystem::TaskApplication()
 {
 	for (auto it = this->addobjects.begin(); it != this->addobjects.end(); ++it)
 	{
@@ -49,12 +49,12 @@ void System::TaskApplication()
 	addobjects.clear();
 }
 /*登録されているオブジェクトがあるかを判定します*/
-bool System::AddObjectCheck()const
+bool TaskSystem::AddObjectCheck()const
 {
 	return this->addobjects.size() > 0;
 }
 /*登録オブジェクトに消去するオブジェクトがないかを判定します*/
-bool System::CheckKillTask()const
+bool TaskSystem::CheckKillTask()const
 {
 	for (int i = 0; i < this->addobjects.size(); ++i)
 	{
@@ -66,43 +66,43 @@ bool System::CheckKillTask()const
 	return false;
 }
 /*登録しているオブジェクトのタスク名を返します*/
-void System::TasknameOutput()const
+void TaskSystem::TasknameOutput()const
 {
 	for (auto it = this->taskobjects.begin(); it != this->taskobjects.end(); ++it)
 	{
 		/*消去されていない場合*/
-		if ((*it).second->getKillCounter() == 0)
+		if ((*it).second->getKillCounter() == 0 && !(*it).second->getisPause())
 		{
 			std::cout << (*it).second->getTaskname().second << std::endl;
 		}
 	}
 }
 /*登録しているオブジェクトの更新処理を行います*/
-void System::T_UpDate()
+void TaskSystem::T_UpDate()
 {
 	for (auto it = this->taskobjects.begin(); it != this->taskobjects.end(); ++it)
 	{
 		/*消去されていない場合*/
-		if ((*it).second->getKillCounter() == 0)
+		if ((*it).second->getKillCounter() == 0 && !(*it).second->getisPause())
 		{
 			(*it).second->UpDate();
 		}
 	}
 }
 /*登録しているオブジェクトの描画処理を行います*/
-void System::T_Render()
+void TaskSystem::T_Render()
 {
 	for (auto it = this->taskobjects.begin(); it != this->taskobjects.end(); ++it)
 	{
 		/*消去されていない場合*/
-		if ((*it).second->getKillCounter() == 0)
+		if ((*it).second->getKillCounter() == 0 && !(*it).second->getisPause())
 		{
 			(*it).second->Render();
 		}
 	}
 }
 /*登録しているオブジェクトの消去できるかをチェックします*/
-void System::T_Destory()
+void TaskSystem::T_Destory()
 {
 	auto it = this->taskobjects.begin();
 	while(it != this->taskobjects.end())
@@ -128,7 +128,7 @@ void System::T_Destory()
 	}
 }
 /*登録しているオブジェクトの全消去を行います*/
-void System::TaskObjectDelete()
+void TaskSystem::TaskObjectDelete()
 {
 	{
 		auto it = this->taskobjects.begin();

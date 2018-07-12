@@ -20,14 +20,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sample1.h" />
-    <ClInclude Include="System.h" />
     <ClInclude Include="TaskObject.h" />
+    <ClInclude Include="TaskSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Sample1.cpp" />
-    <ClCompile Include="System.cpp" />
     <ClCompile Include="TaskObject.cpp" />
+    <ClCompile Include="TaskSystem.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
