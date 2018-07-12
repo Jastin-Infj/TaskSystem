@@ -24,15 +24,11 @@ void Test()
 	Tasksystem = new System();
 	std::pair<std::string, std::string> taskname1 = { "FFシリーズ","FF5" };
 	auto obj = Sample1::Create(&taskname1);
+	auto obj1 = Sample1::Create(&taskname1);
+	auto obj2 = Sample1::Create(&taskname1);
 }
-
-int main()
+void Test1()
 {
-#if(_DEBUG)
-	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-#endif
-
-
 	Test();
 
 	int i = 0;
@@ -41,9 +37,25 @@ int main()
 		Tasksystem->UpDate();
 		++i;
 	}
-	
+	std::pair<std::string, std::string> taskname = { "FFシリーズ","FF5" };
+	auto sample1 = Tasksystem->GetTasks<Sample1>(taskname);
+
+	for (auto s = sample1->begin(); s != sample1->end(); ++s)
+	{
+		std::cout << (*s)->getTaskname().second << std::endl;
+	}
 
 	delete Tasksystem;
 	Tasksystem = nullptr;
+}
+
+int main()
+{
+#if(_DEBUG)
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+#endif
+
+	Test();
+	Test1();
 	system("pause");
 }

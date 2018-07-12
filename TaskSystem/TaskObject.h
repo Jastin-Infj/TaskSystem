@@ -165,6 +165,12 @@ public:
 	///</summary>
 	bool getNextTask()const;
 
+
+	///<summary>
+	///次回のタスクを生成出来るかを変更します
+	///</summary>
+	void setNextTask(const bool&);
+
 private:
 
 ///メンバ変数

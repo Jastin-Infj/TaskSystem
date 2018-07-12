@@ -12,7 +12,9 @@ Sample1::~Sample1()
 }
 bool Sample1::Init(std::pair<std::string, std::string>* taskname_)
 {
-	this->setTaskName(*taskname_);
+	//Šî”ÕƒNƒ‰ƒX‚ÌŠÖ”‚ğŒÄ‚Ño‚·
+	__super::setTaskName(*taskname_);
+
 	return true;
 }
 void Sample1::UpDate()

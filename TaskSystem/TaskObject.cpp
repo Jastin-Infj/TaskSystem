@@ -28,6 +28,7 @@ int  KillSystem::getKillcount()const
 /*コンストラクタ*/
 TaskObject::TaskObject()
 {
+	this->setNextTask(true);
 	std::cout << "TaskObject()" << std::endl;
 }
 /*デストラクタ*/
@@ -43,7 +44,6 @@ std::pair<std::string,std::string> TaskObject::getTaskname()const
 /*初期化処理を行います*/
 bool TaskObject::Init(std::pair<std::string, std::string>* taskname_)
 {
-	this->NextTask = true;
 	std::cout << this->taskname.second << "init()" << std::endl;
 	return true;
 }
@@ -67,7 +67,6 @@ bool TaskObject::Finalize()
 void TaskObject::Kill()
 {
 	this->KillCount();
-	this->NextTask = true;
 }
 /*killのカウンタを返します*/
 int  TaskObject::getKillCounter()const
@@ -83,6 +82,11 @@ bool TaskObject::getNextTask()const
 void TaskObject::setTaskName(std::pair<std::string, std::string>& taskname_)
 {
 	this->taskname = taskname_;
+}
+/*次回生成出来るフラグを設定します*/
+void TaskObject::setNextTask(const bool& flag)
+{
+	this->NextTask = flag;
 }
 /* 自分自身のオブジェクトを返します */
 std::pair<std::pair<std::string, std::string>, TaskObject::SP> TaskObject::getObjectMe(const TaskObject::SP& obj)const
