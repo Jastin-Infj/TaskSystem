@@ -13,30 +13,42 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="ソース ファイル\ResoruceManager">
+      <UniqueIdentifier>{a36d123b-8d3a-49c9-9432-37e6d298d07f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\TaskSystem">
+      <UniqueIdentifier>{4c90fa17-ac8b-429d-813a-5e00308bc750}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TaskObject.h">
-      <Filter>ソース ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Sample1.h">
-      <Filter>ソース ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="TaskSystem.h">
-      <Filter>ソース ファイル</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="TaskObject.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="ResourceManager\ResourceManager.cpp">
+      <Filter>ソース ファイル\ResoruceManager</Filter>
+    </ClCompile>
+    <ClCompile Include="TaskSystem\Task_Example.cpp">
+      <Filter>ソース ファイル\TaskSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="TaskSystem\TaskObject.cpp">
+      <Filter>ソース ファイル\TaskSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="TaskSystem\TaskSystem.cpp">
+      <Filter>ソース ファイル\TaskSystem</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Sample1.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="TaskSystem.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ResourceManager\ResourceManager.h">
+      <Filter>ソース ファイル\ResoruceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="TaskSystem\Task_Example.h">
+      <Filter>ソース ファイル\TaskSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="TaskSystem\TaskObject.h">
+      <Filter>ソース ファイル\TaskSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="TaskSystem\TaskSystem.h">
+      <Filter>ソース ファイル\TaskSystem</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

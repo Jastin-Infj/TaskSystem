@@ -1,13 +1,8 @@
 #pragma once
+#include "../ResourceManager/ResourceManager.h"
 #include <vector>
 #include <memory>
 
-///<summary>
-///
-///</summary>
-///<returns>
-///
-///</returns>
 
 ///<summary>
 ///タスクを消滅させるクラス
@@ -53,6 +48,7 @@ public:
 	///</summary>
 	int getKillcount()const;
 
+
 private:
 
 	///メンバ変数
@@ -61,6 +57,7 @@ private:
 	///キルカウンタ
 	///</summary>
 	int killcount;
+
 };
 
 
@@ -200,6 +197,19 @@ public:
 	void setPause(const bool);
 
 
+	///<summary>
+	///<para>描画優先順位を設定します　高いほどレイヤーは上になります</para>
+	///<para>範囲: 0.0f～1.0f(デフォルト値)</para>
+	///</summary>
+	void setDrawOrder(float = 1.0f);
+
+
+	///<summary>
+	///描画優先順位を返します
+	///</summary>
+	const float getDrawOrder()const;
+
+
 private:
 
 ///メンバ変数
@@ -221,8 +231,12 @@ private:
 	bool isPause;
 
 
-///メンバ関数
-	
+	///<summary>
+	///描画優先順位
+	///</summary>
+	float priority;
 
+
+///メンバ関数
 
 };

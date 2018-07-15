@@ -1,4 +1,5 @@
 #include "TaskSystem.h"
+#include "../ResourceManager/ResourceManager.h"
 #include <iostream>
 #include <string>
 
@@ -24,6 +25,8 @@ void TaskSystem::UpDate()
 		this->TaskApplication();
 		/*íœ—\’è‚Ìƒ^ƒXƒN‚ğíœ‚·‚é*/
 		this->T_Destory();
+		/*•`‰æ‡‚ğ“ü‚ê‘Ö‚¦‚Ä•`‰æ‚·‚é*/
+		this->setOrder();
 	}
 }
 /*ƒIƒuƒWƒFƒNƒg‚ğƒVƒXƒeƒ€‚É‰¼“o˜^‚µ‚Ü‚·*/
@@ -33,6 +36,33 @@ void TaskSystem::Add(const TaskObject::SP& addobject)
 	object.first = addobject->getTaskname();
 	object.second = addobject;
 	this->addobjects.push_back(object);
+}
+/*•`‰æ—Dæ‡ˆÊ‚ğƒVƒXƒeƒ€‚É“o˜^‚µ‚Ü‚·*/
+void TaskSystem::setOrder()
+{
+	/*•`‰æ‡ˆÊ‚ğİ’è‚µ‚Ü‚·*/
+	this->orders.resize(this->taskobjects.size());
+	/*ŠeƒIƒuƒWƒFƒNƒg‚Éİ’è‚³‚ê‚Ä‚¢‚é—Dæ‡ˆÊ‚ğsystem‚É“o˜^‚µ‚Ü‚·*/
+	for (int i = 0; i < this->taskobjects.size(); ++i)
+	{
+		/*“o˜^ƒ^ƒXƒN‚É•`‰æID‚ğİ’è‚µ‚Ü‚·*/
+		this->orders[i].setDrawOrderID(i);
+		this->orders[i].setDrawOrder(this->taskobjects[i].second->getDrawOrder());
+	}
+	/*•`‰æ‡‚É‡‚í‚¹‚Äid‚Æorder‚ğ•À‚Ñ‘Ö‚¦‚é*/
+	for (int i = 0; i < this->taskobjects.size(); ++i)
+	{
+		for (int j = i; j < this->taskobjects.size(); ++j)
+		{
+			/*•`‰æ—Dæ‡ˆÊ‚Ì’l‚ğ”äŠr‚·‚é*/
+			if (this->taskobjects[i].second->getDrawOrder() > this->taskobjects[j].second->getDrawOrder())
+			{
+				DrawOrder temp = this->orders[i];
+				this->orders[i] = this->orders[j];
+				this->orders[j] = temp;
+			}
+		}
+	}
 }
 /*“o˜^—\’è‚ÌƒIƒuƒWƒFƒNƒg‚ğ“o˜^‚µ‚Ü‚·*/
 void TaskSystem::TaskApplication()
@@ -95,12 +125,12 @@ void TaskSystem::T_UpDate()
 /*“o˜^‚µ‚Ä‚¢‚éƒIƒuƒWƒFƒNƒg‚Ì•`‰æˆ—‚ğs‚¢‚Ü‚·*/
 void TaskSystem::T_Render()
 {
-	for (auto it = this->taskobjects.begin(); it != this->taskobjects.end(); ++it)
+	for (int i = 0; i < this->taskobjects.size(); ++i)
 	{
-		/*Á‹‚³‚ê‚Ä‚¢‚È‚¢ê‡*/
-		if ((*it).second->getKillCounter() == 0 && !(*it).second->getisPause())
+		/*•`‰æ—Dæ‡ˆÊ‚ğ•À‚Ñ‘Ö‚¦‚µ‚Ä•`‰æ‚·‚é‡”Ô‚ğ•ÏX‚·‚é*/
+		if (this->taskobjects[this->orders[i].getDrawOrderID()].second->getKillCounter() == 0 && !this->taskobjects[this->orders[i].getDrawOrderID()].second->getisPause())
 		{
-			(*it).second->Render();
+			this->taskobjects[this->orders[i].getDrawOrderID()].second->Render();
 		}
 	}
 }

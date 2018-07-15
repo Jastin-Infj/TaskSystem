@@ -19,15 +19,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Sample1.h" />
-    <ClInclude Include="TaskObject.h" />
-    <ClInclude Include="TaskSystem.h" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="ResourceManager\ResourceManager.cpp" />
+    <ClCompile Include="TaskSystem\TaskObject.cpp" />
+    <ClCompile Include="TaskSystem\TaskSystem.cpp" />
+    <ClCompile Include="TaskSystem\Task_Example.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Sample1.cpp" />
-    <ClCompile Include="TaskObject.cpp" />
-    <ClCompile Include="TaskSystem.cpp" />
+    <ClInclude Include="ResourceManager\ResourceManager.h" />
+    <ClInclude Include="TaskSystem\TaskObject.h" />
+    <ClInclude Include="TaskSystem\TaskSystem.h" />
+    <ClInclude Include="TaskSystem\Task_Example.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

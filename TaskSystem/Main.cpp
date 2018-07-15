@@ -8,9 +8,8 @@
 
 #include <iostream>
 #include <string>
-#include "TaskObject.h"
-#include "Sample1.h"
-#include "TaskSystem.h"
+#include "../TaskSystem/TaskSystem/Task_Example.h"
+#include "../TaskSystem/TaskSystem/TaskSystem.h"
 
 TaskSystem* taskSystem;
 typedef std::pair<std::string, std::string> PSTRING;
@@ -19,29 +18,24 @@ typedef std::pair<std::string, std::string> PSTRING;
 void Test()
 {
 	{
-		PSTRING taskname = { "FF","FF5" };
-		auto s = Sample1::Create(&taskname);
+		PSTRING taskname = { "テスト","Sample1" };
+		auto Sample = TaskObjectExample::Create(taskname);
+		Sample->setDrawOrder(0.3f);
 	}
-}
-void Test1()
-{
+	{
+		PSTRING taskname = { "テスト","Sample2" };
+		auto Sample = TaskObjectExample::Create(taskname);
+		Sample->setDrawOrder(0.2f);
+	}
+	
+
 	int i = 0;
 	while (i < 3)
 	{
+		i++;
 		taskSystem->UpDate();
-		++i;
 	}
-	std::pair<std::string, std::string> taskname = { "FFシリーズ","FF5" };
-	auto sample1 = taskSystem->GetTasks<Sample1>(taskname);
-
-	for (auto s = sample1->begin(); s != sample1->end(); ++s)
-	{
-		std::cout << (*s)->getTaskname().second << std::endl;
-	}
-
-	
 }
-
 int main()
 {
 #if(_DEBUG)
@@ -51,7 +45,6 @@ int main()
 	taskSystem = new TaskSystem();
 
 	Test();
-	Test1();
 
 	delete taskSystem;
 	taskSystem = nullptr;
