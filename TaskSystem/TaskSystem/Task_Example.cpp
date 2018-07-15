@@ -42,9 +42,9 @@ void TaskObjectExample::Render()
 #endif
 }
 /*オブジェクトを生成します*/
-TaskObjectExample::SP TaskObjectExample::Create(std::pair<std::string, std::string>& taskname_, bool flag)
+TaskObject::SP TaskObjectExample::Create(std::pair<std::string, std::string>& taskname_, bool flag)
 {
-	TaskObjectExample::SP to = TaskObjectExample::SP(new TaskObjectExample());
+	TaskObject::SP to = TaskObject::SP(new TaskObjectExample());
 	if (to != nullptr)
 	{
 		to->me = to;

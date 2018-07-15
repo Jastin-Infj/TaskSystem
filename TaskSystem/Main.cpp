@@ -27,7 +27,7 @@ void Test()
 		auto Sample = TaskObjectExample::Create(taskname);
 		Sample->setDrawOrder(0.2f);
 	}
-	
+
 
 	int i = 0;
 	while (i < 3)

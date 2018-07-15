@@ -8,20 +8,6 @@
 class TaskObjectExample : public TaskObject
 {
 public:
-
-	///<summary>
-	///スマートポインタ宣言を省略します
-	///</summary>
-	typedef std::shared_ptr<TaskObjectExample> SP;
-
-
-	///<summary>
-	///ウィークポインタ宣言を省略します
-	///</summary>
-	typedef std::shared_ptr<TaskObjectExample> WP;
-
-
-
 ///メンバ関数
 
 	///<summary>
@@ -49,7 +35,7 @@ public:
 	///<returns>
 	///生成が出来た:スマートポインタ  出来ない:nullptr
 	///</returns>
-	static TaskObjectExample::SP Create(std::pair<std::string,std::string>&, bool = true);
+	static TaskObject::SP Create(std::pair<std::string,std::string>&, bool = true);
 
 
 private:
