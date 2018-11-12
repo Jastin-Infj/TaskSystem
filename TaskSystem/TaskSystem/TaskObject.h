@@ -105,20 +105,12 @@ public:
 
 
 	///<summary>
-	///初期化処理
-	///</summary>
-	///<returns>
-	///初期化処理終了 true
-	///</returns>
-	virtual bool Init(std::pair<std::string, std::string>&);
-
-	///<summary>
 	///更新処理
 	///</summary>
 	///<returns>
 	///なし
 	///</returns>
-	virtual void UpDate();
+	virtual void Update();
 
 
 	///<summary>
@@ -147,11 +139,11 @@ public:
 	///</returns>
 	void Kill();
 
+
 	///<summary>
 	///Killカウンタを返します
 	///</summary>
 	int  getKillCounter()const;
-
 
 
 	///<summary>
@@ -163,7 +155,7 @@ public:
 	///<summary>
 	///グループ名・タスク名をセットします
 	///</summary>
-	void setTaskName(std::pair<std::string, std::string>&);
+	void setTaskName(const std::pair<std::string, std::string>&);
 
 
 	///<summary>
@@ -210,6 +202,29 @@ public:
 	const float getDrawOrder()const;
 
 
+	/// <summary>
+	/// タスク名を生成時に初期化設定を行います
+	/// </summary>
+	/// <param name="taskname">
+	/// グループ名・タスク名
+	/// </param>
+	/// <returns>
+	/// タスク名の設定完了 true / タスク名に空白がある false
+	/// </returns>
+	bool CreatedObjectInit(const std::pair<std::string,std::string>& taskname);
+
+
+	///<summary>
+	///タスク名が検索ワードと一致しているかを返します
+	///</summary>
+	///<param name="taskname_">
+	///検索ワード
+	///</param>
+	///<returns>
+	///一致している true / 一致していない false
+	///</returns>
+	bool isTasknameSecond(const std::string& taskname_)const;
+
 private:
 
 ///メンバ変数
@@ -234,7 +249,7 @@ private:
 	///<summary>
 	///描画優先順位
 	///</summary>
-	float priority;
+	float order;
 
 
 ///メンバ関数

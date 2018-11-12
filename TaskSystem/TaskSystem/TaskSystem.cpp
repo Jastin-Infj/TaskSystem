@@ -15,10 +15,8 @@ TaskSystem::~TaskSystem()
 	std::cout << "~TaskSystem" << std::endl;
 }
 /*タスクシステムの更新処理*/
-void TaskSystem::UpDate()
+void TaskSystem::Update()
 {
-	this->T_UpDate();
-	this->T_Render();
 	if (this->AddObjectCheck() || this->CheckKillTask())
 	{
 		/*登録予定のタスクを登録する*/
@@ -28,6 +26,8 @@ void TaskSystem::UpDate()
 		/*描画順を入れ替えて描画する*/
 		this->setOrder();
 	}
+	this->T_UpDate();
+	this->T_Render();
 }
 /*オブジェクトをシステムに仮登録します*/
 void TaskSystem::Add(const TaskObject::SP& addobject)
@@ -72,7 +72,6 @@ void TaskSystem::TaskApplication()
 		std::pair<std::pair<std::string, std::string>, TaskObject::SP> addobject;
 		addobject = (*it);
 
-		/*次回はここから処理*/
 		if (addobject.second->getNextTask())
 		{
 			this->taskobjects.push_back(addobject);
@@ -89,7 +88,7 @@ bool TaskSystem::AddObjectCheck()const
 /*登録オブジェクトに消去するオブジェクトがないかを判定します*/
 bool TaskSystem::CheckKillTask()const
 {
-	for (int i = 0; i < this->addobjects.size(); ++i)
+	for (int i = 0; i < this->taskobjects.size(); ++i)
 	{
 		if (this->taskobjects[i].second->getKillCounter() > 0)
 		{
@@ -118,7 +117,7 @@ void TaskSystem::T_UpDate()
 		/*消去されていない場合*/
 		if ((*it).second->getKillCounter() == 0 && !(*it).second->getisPause())
 		{
-			(*it).second->UpDate();
+			(*it).second->Update();
 		}
 	}
 }
@@ -180,4 +179,9 @@ void TaskSystem::TaskObjectDelete()
 			it = this->taskobjects.begin();
 		}
 	}
+}
+/*アプリケーションを落とします*/
+void TaskSystem::Application_Exit()const
+{
+	//System::Exit();
 }

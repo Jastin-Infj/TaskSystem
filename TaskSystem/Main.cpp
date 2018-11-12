@@ -8,8 +8,8 @@
 
 #include <iostream>
 #include <string>
-#include "../TaskSystem/TaskSystem/Task_Example.h"
 #include "../TaskSystem/TaskSystem/TaskSystem.h"
+#include "../TaskSystem/TaskSystem/TaskSystem_GameObject.h"
 
 TaskSystem* taskSystem;
 typedef std::pair<std::string, std::string> PSTRING;
@@ -18,22 +18,16 @@ typedef std::pair<std::string, std::string> PSTRING;
 void Test()
 {
 	{
-		PSTRING taskname = { "テスト","Sample1" };
-		auto Sample = TaskObjectExample::Create(taskname);
-		Sample->setDrawOrder(0.3f);
+		std::string sceceName = "テスト";
+		std::string sceceTag = "Sample1";
+		PSTRING taskname = {sceceName,sceceTag };
+		TaskSystemGameObject::Create(taskname);
 	}
-	{
-		PSTRING taskname = { "テスト","Sample2" };
-		auto Sample = TaskObjectExample::Create(taskname);
-		Sample->setDrawOrder(0.2f);
-	}
-
-
 	int i = 0;
-	while (i < 3)
+	while (i < 2)
 	{
-		i++;
-		taskSystem->UpDate();
+		taskSystem->Update();
+		++i;
 	}
 }
 int main()

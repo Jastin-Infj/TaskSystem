@@ -2,14 +2,14 @@
 #include <vector>
 
 
-class Textrue {};
+class Texture {};
 class Sound {};
 
 
 ///<summary>
 ///描画順を設定するクラス
 ///</summary>
-class DrawOrder
+class DrawOrder 
 {
 public:
 	///<summary>
@@ -24,11 +24,13 @@ public:
 	~DrawOrder();
 
 
-	///<summary>
-	///<para>描画優先度を設定します</para>
-	///<para>0.0f ～ デフォルト(1.0f)</para>
-	///</summary>
-	void setDrawOrder(float);
+	/// <summary>
+	/// 描画優先度を設定します
+	/// </summary>
+	/// <param name="order_">
+	/// 描画優先順位
+	/// </param>
+	void setDrawOrder(float order_);
 
 
 	///<summary>
@@ -37,29 +39,27 @@ public:
 	const float getDrawOrder()const;
 
 	
-	///<summary>
-	///描画IDを設定します
-	///</summary>
-	void setDrawOrderID(int&);
+	/// <summary>
+	/// 描画IDを設定します
+	/// </summary>
+	/// <param name="resource_id">
+	/// ResourceID
+	/// </param>
+	void setDrawOrderID(int& resource_id);
 
 
 	///<summary>
 	///描画IDを返します
 	///</summary>
+	///<returns>
+	///描画ID 
+	///</returns>
 	int getDrawOrderID()const;
 
 
 private:
-	///<summary>
-	///描画順の優先度 範囲: 0.0 ～ 1.0
-	///</summary>
-	float order;
-
-
-	///<summary>
-	///タスク描画ID
-	///</summary>
-	int id;
+	float order;	//描画順の優先度
+	int   id;		//タスク描画ID
 };
 
 
@@ -80,35 +80,53 @@ public:
 	///<summary>
 	~ResourceManager();
 
-
-	///<summary>
-	///テクスチャをシステムに登録します
-	///</summary>
-	void setTextrue(const std::string& ,Textrue*);
+	
+	/// <summary>
+	/// テクスチャをシステムに登録します
+	/// </summary>
+	/// <param name="texturename">
+	/// テクスチャ名
+	/// </param>
+	/// <param name="texture">
+	/// 登録するテクスチャ
+	/// </param>
+	void setTexture(const std::string& texturename ,const Texture& texture);
 
 
 	///<summary>
 	///サウンドをシステムに登録します
 	///</summary>
-	void setSound(const std::string&, Sound*);
+	/// <param name="soundname">
+	/// サウンド名
+	/// </param>
+	/// <param name="sound">
+	/// 登録するサウンド
+	/// </param>
+	void setSound(const std::string& soundname, const Sound& sound);
 
 
 	///<summary>
-	///登録してあるテクスチャから指定のテクスチャを取得します (string: テクスチャ名)
+	///登録してあるテクスチャから指定のテクスチャを取得します
 	///</summary>
-	///<returns>
-	///テクスチャ名と一致したテクスチャのポインタ
-	///</returns>
-	Textrue* getTextrue(const std::string&)const;
+	/// <param name="texturename">
+	/// 検索ワード
+	/// </param>
+	/// <returns>
+	/// テクスチャ名と一致したテクスチャ
+	/// </returns>
+	Texture getTexture(const std::string& texturename)const;
 
 
 	///<summary>
-	///登録してあるサウンドから指定のサウンドを取得します (string: サウンド名)
+	///登録してあるサウンドから指定のサウンドを取得します
 	///</summary>
+	/// <param name="soundname">
+	/// 検索ワード
+	/// </param>
 	///<returns>
 	///サウンド名と一致したサウンドのポインタ
 	///</returns>
-	Sound* getSound(const std::string&)const;
+	Sound getSound(const std::string& soundname)const;
 
 
 	///<summary>
@@ -128,16 +146,16 @@ public:
 	///</summary>
 	void DeleteSound();
 
-
 private:
 	///<summary>
 	///登録しているテクスチャ
 	///</summary>
-	std::vector<std::pair<std::string, Textrue*>> textrues;
+	std::vector<std::pair<std::string, Texture>> textures;
 
 
 	///<summary>
 	///登録されているサウンド
 	///</summary>
-	std::vector<std::pair<std::string, Sound*>>   sounds;
+	std::vector<std::pair<std::string, Sound>>   sounds;
 };
+extern ResourceManager* rm;		//ResourceManagerにアクセス用変数

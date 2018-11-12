@@ -48,7 +48,7 @@ TaskObject::SP TaskObjectExample::Create(std::pair<std::string, std::string>& ta
 	if (to != nullptr)
 	{
 		to->me = to;
-		if (!to->Init(taskname_))
+		if (!to->CreatedObjectInit(taskname_))
 		{
 			to->Kill();
 		}

@@ -23,13 +23,13 @@
     <ClCompile Include="ResourceManager\ResourceManager.cpp" />
     <ClCompile Include="TaskSystem\TaskObject.cpp" />
     <ClCompile Include="TaskSystem\TaskSystem.cpp" />
-    <ClCompile Include="TaskSystem\Task_Example.cpp" />
+    <ClCompile Include="TaskSystem\TaskSystem_GameObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ResourceManager\ResourceManager.h" />
     <ClInclude Include="TaskSystem\TaskObject.h" />
     <ClInclude Include="TaskSystem\TaskSystem.h" />
-    <ClInclude Include="TaskSystem\Task_Example.h" />
+    <ClInclude Include="TaskSystem\TaskSystem_GameObject.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

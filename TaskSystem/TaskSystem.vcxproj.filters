@@ -24,9 +24,6 @@
     <ClCompile Include="ResourceManager\ResourceManager.cpp">
       <Filter>ソース ファイル\ResoruceManager</Filter>
     </ClCompile>
-    <ClCompile Include="TaskSystem\Task_Example.cpp">
-      <Filter>ソース ファイル\TaskSystem</Filter>
-    </ClCompile>
     <ClCompile Include="TaskSystem\TaskObject.cpp">
       <Filter>ソース ファイル\TaskSystem</Filter>
     </ClCompile>
@@ -36,18 +33,21 @@
     <ClCompile Include="Main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="TaskSystem\TaskSystem_GameObject.cpp">
+      <Filter>ソース ファイル\TaskSystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ResourceManager\ResourceManager.h">
       <Filter>ソース ファイル\ResoruceManager</Filter>
     </ClInclude>
-    <ClInclude Include="TaskSystem\Task_Example.h">
-      <Filter>ソース ファイル\TaskSystem</Filter>
-    </ClInclude>
     <ClInclude Include="TaskSystem\TaskObject.h">
       <Filter>ソース ファイル\TaskSystem</Filter>
     </ClInclude>
     <ClInclude Include="TaskSystem\TaskSystem.h">
+      <Filter>ソース ファイル\TaskSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="TaskSystem\TaskSystem_GameObject.h">
       <Filter>ソース ファイル\TaskSystem</Filter>
     </ClInclude>
   </ItemGroup>
