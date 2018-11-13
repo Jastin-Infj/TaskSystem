@@ -10,8 +10,10 @@
 #include <string>
 #include "../TaskSystem/TaskSystem/TaskSystem.h"
 #include "../TaskSystem/TaskSystem/TaskSystem_GameObject.h"
+#include "ResourceManager\ResourceManager.h"
 
 TaskSystem* taskSystem;
+ResourceManager* resourceManagager;
 typedef std::pair<std::string, std::string> PSTRING;
 
 
@@ -19,7 +21,7 @@ void Test()
 {
 	{
 		std::string sceceName = "テスト";
-		std::string sceceTag = "Sample1";
+		std::string sceceTag = "タグ";
 		PSTRING taskname = {sceceName,sceceTag };
 		TaskSystemGameObject::Create(taskname);
 	}
@@ -37,10 +39,13 @@ int main()
 #endif
 
 	taskSystem = new TaskSystem();
+	resourceManagager = new ResourceManager();
 
 	Test();
 
 	delete taskSystem;
+	delete resourceManagager;
 	taskSystem = nullptr;
+	resourceManagager = nullptr;
 	system("pause");
 }

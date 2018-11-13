@@ -3,12 +3,12 @@
 
 bool TaskSystemGameObject::Initialize()
 {
-
+	std::cout << "‰Šú‰»ˆ—" << std::endl;
 	return true;
 }
-void TaskSystemGameObject::UpDate()
+void TaskSystemGameObject::Update()
 {
-	
+	std::cout << "‚n‚j" << std::endl;
 }
 void TaskSystemGameObject::Render()
 {
@@ -27,7 +27,13 @@ TaskSystemGameObject::SP TaskSystemGameObject::Create(const std::pair<std::strin
 		createTasksystemgameobject->me = createTasksystemgameobject;
 
 		//ƒ^ƒXƒNƒVƒXƒeƒ€‚É“o˜^‚·‚é‘O‚É‰Šú‰»ˆ—‚ðs‚¤
-		if (!createTasksystemgameobject->CreatedObjectInit(taskName) && !createTasksystemgameobject->Initialize())
+		bool addTasksystemFlag = createTasksystemgameobject->CreatedObjectInit(taskName);
+		bool initializeFlag = false;
+		if (addTasksystemFlag)
+		{
+			initializeFlag = createTasksystemgameobject->Initialize();
+		}
+		if (!addTasksystemFlag && !initializeFlag)
 		{
 			createTasksystemgameobject->Kill();
 		}

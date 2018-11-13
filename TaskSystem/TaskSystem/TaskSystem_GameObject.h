@@ -9,7 +9,7 @@ public:
 
 	static TaskSystemGameObject::SP Create(const std::pair<std::string, std::string>& taskName, const bool& tasksystemFlag = true);
 	virtual bool   Initialize();
-	virtual void   UpDate();
-	virtual void   Render();
-	virtual bool   Finalize();
+	virtual void   Update()override;
+	virtual void   Render()override;
+	virtual bool   Finalize()override;
 };
